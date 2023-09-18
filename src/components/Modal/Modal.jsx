@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-
 export const Modal = ({largeImageURL, closeModal}) => {
 
     useEffect(() =>  {
@@ -12,7 +11,7 @@ export const Modal = ({largeImageURL, closeModal}) => {
             window.removeEventListener('keydown', onKeydownEsc);
         }
     },[closeModal])
-    
+
     return (
         <div className="Overlay" onClick={closeModal}>
             <div className="Modal">
