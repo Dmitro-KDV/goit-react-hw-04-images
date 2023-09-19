@@ -31,7 +31,6 @@ export const App = () => {
                 return;
             }
             if (page > 1) {
-              scroll();
               setImage((prevImage) => [...prevImage, ...response.data.hits])
             }  else {
               setImage(response.data.hits);
@@ -47,6 +46,9 @@ export const App = () => {
     }
   },[searchText, page]);
 
+  useEffect(() => {
+    image && scroll()
+  }, [image]);
 
   const handleChange = (searchText) => {
     setSearchText(searchText)
@@ -66,7 +68,7 @@ export const App = () => {
   }
 
   const scroll = () => {
-    innerHeight = innerHeight + window.innerHeight
+    innerHeight = innerHeight + window.innerHeight;
     window.scrollBy({
       top: innerHeight,
       behavior: "smooth",
@@ -82,7 +84,7 @@ export const App = () => {
             <ImageGallery openModal={openModal}>
                 {image && image.map((el) => {
                   return (
-                    <ImageGalleryItem key={el.id} image={el}/>
+                    <ImageGalleryItem key={el.id} image={el} scroll={scroll}/>
                 )})}  
             </ImageGallery>
             
@@ -99,8 +101,7 @@ export const App = () => {
               />
             </div>
             }
-
-            {page*12<= totalPage &&  <Button handleSubmit={handleSubmit}/>}
+            {page * 12 <= totalPage &&  <Button handleSubmit={handleSubmit}/>}
           </>
       </div>
     );

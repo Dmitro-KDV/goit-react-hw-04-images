@@ -1,5 +1,5 @@
 
-export const ImageGalleryItem = ({image}) => {
+export const ImageGalleryItem = ({image, scroll}) => {
     return (
         <li className="ImageGalleryItem">
             <img 
