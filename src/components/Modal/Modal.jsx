@@ -53,7 +53,7 @@ export const Modal = ({largeImageURL, closeModal}) => {
             src="${largeImageURL}" 
             width="800" 
             height="600"
-            onClick=${closeModal}>
+            >
       `);
       instance.show();
   }, [largeImageURL]);
