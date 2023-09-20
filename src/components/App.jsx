@@ -84,7 +84,7 @@ export const App = () => {
             <ImageGallery openModal={openModal}>
                 {image && image.map((el) => {
                   return (
-                    <ImageGalleryItem key={el.id} image={el} scroll={scroll}/>
+                    <ImageGalleryItem key={el.id} image={el}/>
                 )})}  
             </ImageGallery>
             
