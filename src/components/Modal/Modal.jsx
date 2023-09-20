@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useCallback } from "react";
 import * as basicLightbox from 'basiclightbox'
 import "components/Modal/basicLightbox.min.css";
 
@@ -57,7 +57,7 @@ export const Modal = ({largeImageURL, closeModal}) => {
       `);
       instance.show();
   }, [largeImageURL]);
-  
+
   return handleOpenModal()
 
 
