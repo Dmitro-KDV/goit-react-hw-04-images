@@ -74,7 +74,6 @@ export const App = () => {
       behavior: "smooth",
     });
   } 
-
     return (
       <div>
         <header className="Searchbar">

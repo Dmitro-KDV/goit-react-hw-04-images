@@ -1,81 +1,66 @@
-import { useCallback } from "react";
-import * as basicLightbox from 'basiclightbox'
-import "components/Modal/basicLightbox.min.css";
+import { useCallback } from 'react';
+// import { useEffect } from 'react';
+import * as basicLightbox from 'basiclightbox';
+import 'components/Modal/basicLightbox.min.css';
 
+export const Modal = ({ largeImageURL, closeModal }) => {
 
+  // 1-й варіант
 
+  // useEffect(() =>  {
+  //     const onKeydownEsc = (e) => {
+  //         if (e.code === 'Escape') closeModal()
+  //     }
+  //     window.addEventListener('keydown', onKeydownEsc);
+  //     return () => {
+  //         window.removeEventListener('keydown', onKeydownEsc);
+  //     }
+  // },[closeModal])
 
-export const Modal = ({largeImageURL, closeModal}) => {
+  // return (
+  //     <div className="Overlay" onClick={closeModal}>
+  //         <div className="Modal">
+  //             <img src={largeImageURL} alt="" width="800" height="600"/>
+  //         </div>
+  //     </div>
+  // );
 
-    // useEffect(() =>  {
-    //     const onKeydownEsc = (e) => {
-    //         if (e.code === 'Escape') closeModal()
-    //     }
-    //     window.addEventListener('keydown', onKeydownEsc); 
-    //     return () => {
-    //         window.removeEventListener('keydown', onKeydownEsc);
-    //     }
-    // },[closeModal])
+  //**************************** */
+  
+  // 2-й варіант, потрібно вимкнути суворий режим в index.js 
+  //  цей рідок <React.StrictMode>
+  //  <App />
+  //  цей рядок  </React.StrictMode>
 
-  // console.log(largeImageURL)
-    // const handleOpenModal = () => {
-    //     const instance = basicLightbox.create(`
-    //         <img 
-    //             src="${largeImageURL}" 
-    //             alt="" 
-    //             width="800" 
-    //             height="600"
-    //             onClick=${closeModal}>
-    //     `,
-    //     {
-    //         onShow: () => {
-    //           window.addEventListener('keydown', onKeydownEsc);
-    //         },
-    //         onClose: () => {
-    //           window.removeEventListener('keydown', onKeydownEsc);
-    //         },
-    //       }
-    //     );
-    //     const onKeydownEsc = (event) => {
-    //         if (event.code === 'Escape') {
-    //             instance.close();
-    //         }
-    //       }
-    //     instance.show();
-    // };
-    // return handleOpenModal()
-
-
-
-    const handleOpenModal = useCallback(() => {
-      const instance = basicLightbox.create(`
+  const handleOpenModal = useCallback(() => {
+    const instance = basicLightbox.create(
+      `
           <img 
             src="${largeImageURL}" 
             width="800" 
             height="600"
-            >
-      `);
-      instance.show();
-  }, [largeImageURL]);
+          >
+      `,
+      {
+        onShow: () => {
+          window.addEventListener('keydown', onKeydownEsc);
+        },
+        onClose: () => {
+          closeModal();
+          window.removeEventListener('keydown', onKeydownEsc);
+        },
+      }
+    );
 
-  return handleOpenModal()
+    const onKeydownEsc = event => {
+      if (event.code === 'Escape') {
+        instance.close();
+      }
+    };
 
+    instance.show();
+    
+  }, [largeImageURL, closeModal]);
 
-
-
-    // return (
-    //     <img 
-    //         src={largeImageURL} 
-    //         onClick={handleOpenModal} 
-    //         style={{ cursor: 'pointer' }} 
-    //     />
-    // );    
-
-    // return (
-    //     <div className="Overlay" onClick={closeModal}>
-    //         <div className="Modal">
-    //             <img src={largeImageURL} alt="" width="800" height="600"/>
-    //         </div>
-    //     </div>
-    // );
-}
+  return handleOpenModal();
+};
