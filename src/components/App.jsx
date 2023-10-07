@@ -36,6 +36,7 @@ export const App = () => {
               setImage(response.data.hits);
             }
             setTotalPage(response.data.totalHits);
+            console.log(response.data.hits)
           })
           .catch(function(error) {
               Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
